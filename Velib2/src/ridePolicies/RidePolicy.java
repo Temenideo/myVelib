@@ -1,5 +1,7 @@
 package ridePolicies;
 
-public interface RidePolicy {
+import myVelib.Station;
 
+public interface RidePolicy {
+	public Station test();
 }
