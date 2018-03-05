@@ -3,6 +3,7 @@ package myVelib;
 public class Ride implements Observer {
 	private GPScoord start;
 	private GPScoord end;
+	private int bob;
 	
 	/*
 	public void computeStart(Reseau res) {
