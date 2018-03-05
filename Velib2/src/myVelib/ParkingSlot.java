@@ -1,6 +1,8 @@
 package myVelib;
 
 import java.util.ArrayList;
+
+import myVelib.Bicycle.Bicycle;
 /**
  * Une classe permettant de créer les objets de même nom
  * @author xavier

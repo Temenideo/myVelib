@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import myVelib.Bicycle.Bicycle;
 import ridePolicies.RidePolicy;
 
 public class Location implements Observer{

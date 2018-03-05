@@ -196,6 +196,7 @@ public class Station implements Observable {
 		}
 		
 	}
+	
 	@Override
 	public String toString() {
 		return "Station"+ stationID+" "+name+" ("+position+") Parking Slots:" + parkingSlotList;
