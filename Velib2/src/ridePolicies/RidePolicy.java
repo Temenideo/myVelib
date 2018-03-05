@@ -3,5 +3,5 @@ package ridePolicies;
 import myVelib.Station;
 
 public interface RidePolicy {
-	public Station test3();
+	public Station test4();
 }
