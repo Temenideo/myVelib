@@ -8,17 +8,17 @@ import java.util.ArrayList;
  *
  */
 public class Station implements Observable {
-	protected ArrayList<ParkingSlot> parkingSlotList;
-	protected String typeStation;
-	protected String state;
-	protected GPScoord position;
-	protected static Long compteur=(long) 0;
-	protected Long stationID;
-	protected String name;
+	private ArrayList<ParkingSlot> parkingSlotList;
+	private String typeStation;
+	private String state;
+	private GPScoord position;
+	private static Long compteur=(long) 0;
+	private Long stationID;
+	private String name;
 	private int freeSlots;
 	private int freeBikes;
-	protected ArrayList<Location> leavingRideList;
-	protected ArrayList<Location> incomingRideList;
+	private ArrayList<Location> leavingRideList;
+	private ArrayList<Location> incomingRideList;
 	/**
 	 * Ce contructeur peux être amené à renvoyer une erreur dans le cas où le type de station ou le type d'état n'a pas été écrit correctement ou n'existe pas
 	 * @param parkingSlotList

@@ -13,9 +13,9 @@ public class Reseau {
 	 * La classe reseau est constituée de 3 attributs, une ArrayList de Station nommée stationList, une ArrayList de User nommée userList
 	 * et une ArrayList de Location nommée locationList
 	 */
-	protected ArrayList<Station> stationList;
-	protected ArrayList<User> userList;
-	protected ArrayList<Location> locationList;
+	private ArrayList<Station> stationList;
+	private ArrayList<User> userList;
+	private ArrayList<Location> locationList;
 	
 	public Reseau(ArrayList<Station> stationList, ArrayList<User> userList, ArrayList<Location> locationList) {
 		super();
