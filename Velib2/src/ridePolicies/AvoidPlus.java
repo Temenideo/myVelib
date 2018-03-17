@@ -6,10 +6,10 @@ import myVelib.Station;
 
 public class AvoidPlus implements RidePolicy{
 	@Override
-	public Station computeStart(Reseau reseau,GPScoord start,GPScoord end,String typeBike) {
+	public Station computeStart(Reseau reseau,GPScoord start,GPScoord end,String typeBike) throws NoStartStationAvailibleException {
 		double dist=-1;
 		Station startStation = null;
-		if (typeBike=="Electrical"){
+		if (typeBike.equals("Electrical")){
 			for (Station stat : reseau.getStationList()) {
 				if(stat.getState().equals("On service")) {
 					if(stat.availableBikeE()) {
@@ -21,7 +21,7 @@ public class AvoidPlus implements RidePolicy{
 				}
 			}
 		}
-		if (typeBike=="Mecanical"){
+		if (typeBike.equals("Mecanical")){
 			for (Station stat : reseau.getStationList()) {
 				if(stat.getState().equals("On service")) {
 					if(stat.availableBikeM()) {
@@ -37,16 +37,16 @@ public class AvoidPlus implements RidePolicy{
 			return(startStation);
 		}
 		else
-			//il faut aussi return une erreur à coder ensuite
-			System.out.println("No station fitting your criteria is availabale for departure, please try again later or change your ride settings");
+			throw new NoStartStationAvailibleException();
 	}
 	@Override
-	public Station computeEnd(Reseau reseau,GPScoord start,GPScoord end,String typeBike) {
+	public Station computeEnd(Reseau reseau,GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailibleExecption {
 		double dist=-1;
 		Station endStation = null;
 		for (Station stat : reseau.getStationList()) {
-			if(stat.getState().equals("On service") && stat.getTypeStation()!="Plus") {
+			if(stat.getState().equals("On service") && !stat.getTypeStation().equals("Plus")) {
 				if(stat.availableParkingSlot()) {
+					//voir si c'est bien start.get....
 					if (dist<0 || dist>start.getDistance(stat.getPosition())) {
 						dist=start.getDistance(stat.getPosition());
 						endStation=stat;
@@ -58,7 +58,6 @@ public class AvoidPlus implements RidePolicy{
 			return(endStation);
 		}
 		else
-			//il faut aussi return une erreur à coder ensuite
-			System.out.println("No station fitting your criteria is availabale for departure, please try again later or change your ride settings");
+			throw new NoEndStationAvailibleExecption();
 	}
 }
