@@ -46,12 +46,12 @@ public class Location implements Observer{
 	 * This method tries to retrieve a bike from the departure station. 
 	 * It goes through all of the station's parking slot until it has found one that is holding a bike.
 	 * If a bike is found, the location starts, hence the start time of the location is defined and a bike is linked to this location.
-	 * If no bike is found, then the method gives en error message and finds another departure station fitting with the user's settings.
+	 * If no bike is found, then the method gives an error message and finds another departure station fitting with the user's settings.
 	 */
 	
 	public void takeBike(Station departure) throws BadParkingSlotCreationException{
 		while(bike==null) {
-			for(ParkingSlot pS : departure.parkingSlotList) {
+			for(ParkingSlot pS : departure.getParkingSlotList()) {
 				bike=pS.getBicycle();
 			}
 			System.out.println("No bike is available in this station");
@@ -79,7 +79,7 @@ public class Location implements Observer{
 	public void returnBike(Station arrival) throws BadParkingSlotCreationException {
 		boolean stored = false;
 		while(stored==false) {
-			for(ParkingSlot pS : arrival.parkingSlotList){
+			for(ParkingSlot pS : arrival.getParkingSlotList()){
 				stored = pS.storeBike(this.bike);			
 			}
 			System.out.println("No parking slot is available in this station");
@@ -107,7 +107,7 @@ public class Location implements Observer{
 		double dist=-1;
 		Station startStation = null;
 		for (Station stat : reseau.getStationList()) {
-			if(stat.state.equals("On service")) {
+			if(stat.getState().equals("On service")) {
 				if(stat.availableBikeE()||stat.availableBikeM()) {
 					if (dist<0 || dist>this.start.getDistance(stat.getPosition())) {
 						dist=this.start.getDistance(stat.getPosition());
@@ -127,7 +127,7 @@ public class Location implements Observer{
 		double dist=-1;
 		Station endStation = null;
 		for (Station stat : reseau.getStationList()) {
-			if(stat.state.equals("On service")) {
+			if(stat.getState().equals("On service")) {
 				if(stat.availableParkingSlot()) {
 					if (dist<0 || dist>this.end.getDistance(stat.getPosition())) {
 						dist=this.end.getDistance(stat.getPosition());
