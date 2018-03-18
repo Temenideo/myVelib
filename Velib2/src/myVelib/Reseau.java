@@ -16,22 +16,23 @@ public class Reseau {
 	protected ArrayList<Station> stationList;
 	protected ArrayList<User> userList;
 	protected ArrayList<Location> locationList;
+	private static Reseau instance = null;
 	
-	public Reseau(ArrayList<Station> stationList, ArrayList<User> userList, ArrayList<Location> locationList) {
-		super();
-		this.stationList = stationList;
-		this.userList = userList;
-		this.locationList = locationList;
-		Location.initializeLocation(this);
-	}
-	
-	public Reseau() {
+		
+	private Reseau() {
 		super();
 		this.stationList = new ArrayList<Station>();
 		this.userList = new ArrayList<User>();
 		this.locationList = new ArrayList<Location>();
-		Location.initializeLocation(this);
 	}
+	
+	public static Reseau getInstance() {
+		if (instance==null) {
+			instance = new Reseau();
+		}
+		return instance;
+	}
+	
 	public ArrayList<Station> getStationList() {
 		return stationList;
 	}
@@ -69,6 +70,36 @@ public class Reseau {
 	@Override
 	public String toString() {
 		return "Reseau [stationList=" + stationList + ", userList=" + userList + ", locationList=" + locationList + "]";
+	}
+	
+	/**
+	 * This method finds the stations that are currently of the "Plus" type and returns the list of them
+	 * @return
+	 */
+	
+	public ArrayList<Station> getPlusStation(){
+		ArrayList<Station> plusList = new ArrayList<Station>();
+		for (Station s : stationList) {
+			if(s.getTypeStation().equalsIgnoreCase("Plus")) {
+				plusList.add(s);
+			}
+		}
+		return plusList;
+	}
+	
+	/**
+	 * This method finds the stations that are currently of the "Standard" type and returns the list of them
+	 * @return
+	 */
+	
+	public ArrayList<Station> getStandardStation(){
+		ArrayList<Station> standardList = new ArrayList<Station>();
+		for (Station s : stationList) {
+			if(s.getTypeStation().equalsIgnoreCase("Standard")) {
+				standardList.add(s);
+			}
+		}
+		return standardList;
 	}
 	
 	

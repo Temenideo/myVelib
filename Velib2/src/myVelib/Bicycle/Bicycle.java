@@ -1,22 +1,25 @@
-package myVelib;
+package myVelib.Bicycle;
 
+import myVelib.BadBicycleCreationException;
 
-public class Bicycle {
-	private static Long compteurM=(long) 100000;
-	private static Long compteurE=(long) 800000;
+public abstract class Bicycle {
+	private static Long compteur=(long) 100000;
 	private long bikeID;
-	private String typeBike;
+	protected String typeBike;
+	public double speed;
+	
+	
 	public Bicycle(String typeBike) throws BadBicycleCreationException {
 		super();
 		if (typeBike=="Mechanical"){
-		compteurM++;
-		bikeID=compteurM;
+		compteur++;
+		bikeID=compteur;
 		this.typeBike = typeBike;
 		}
 		else{
 			if(typeBike=="Electrical") {
-				compteurE++;
-				bikeID=compteurE;
+				compteur++;
+				bikeID=compteur;
 				this.typeBike = typeBike;
 			}
 		else {
@@ -34,6 +37,9 @@ public class Bicycle {
 	@Override
 	public String toString() {
 		return "Bicycle [bikeID=" + bikeID + ", typeBike=" + typeBike + "]";
+	}
+	public double getSpeed() {
+		return speed;		
 	}
 	
 	

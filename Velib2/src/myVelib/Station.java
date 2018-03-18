@@ -41,6 +41,7 @@ public class Station implements Observable {
 				this.position = position;
 				this.name = name;
 				this.incomingRideList=new ArrayList<Location>();
+				Reseau.getInstance().addStation(this);
 			}
 			else {
 				throw new BadStateStationCreationException(state);

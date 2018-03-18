@@ -2,6 +2,8 @@ package myVelib;
 
 import java.util.ArrayList;
 
+import myVelib.Bicycle.Bicycle;
+
 public class myVelibTest {
 	public static void main(String[] args) throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, BadBicycleCreationException {
 		Reseau res = new Reseau();

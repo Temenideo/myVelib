@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import myVelib.Bicycle.Bicycle;
+import myVelib.Card.Card;
 import ridePolicies.RidePolicy;
 
 public class Location implements Observer{
@@ -15,7 +17,6 @@ public class Location implements Observer{
 	private GPScoord start;
 	private GPScoord end;
 	private boolean hasStarted;
-	static Reseau reseau;
 	private User user;
 	private RidePolicy ridePolicy;
 	
@@ -25,7 +26,7 @@ public class Location implements Observer{
 		this.end=end;
 		this.hasStarted=false;
 		this.user.setLocation(this);
-		reseau.addLocation(this);
+		Reseau.getInstance().addLocation(this);
 	}
 	
 	public Location(User user, Station departure) {
@@ -34,13 +35,9 @@ public class Location implements Observer{
 		this.hasStarted=true;
 		this.timeStart=Calendar.getInstance().getTime();
 		this.user.setLocation(this);
-		reseau.addLocation(this);
+		Reseau.getInstance().addLocation(this);
 	}
 	
-	public static void initializeLocation(Reseau res) {
-		Location.reseau=res;
-	}
-
 	/**
 	 * This method tries to retrieve a bike from the departure station. 
 	 * It goes through all of the station's parking slot until it has found one that is holding a bike.
@@ -105,7 +102,7 @@ public class Location implements Observer{
 	public void computeStart() {
 		double dist=-1;
 		Station startStation = null;
-		for (Station stat : reseau.getStationList()) {
+		for (Station stat : Reseau.getInstance().getStationList()) {
 			if(stat.state.equals("On service")) {
 				if(stat.availableBikeE()||stat.availableBikeM()) {
 					if (dist<0 || dist>this.start.getDistance(stat.getPosition())) {
@@ -125,7 +122,7 @@ public class Location implements Observer{
 	public void computeEnd() {
 		double dist=-1;
 		Station endStation = null;
-		for (Station stat : reseau.getStationList()) {
+		for (Station stat : Reseau.getInstance().getStationList()) {
 			if(stat.state.equals("On service")) {
 				if(stat.availableParkingSlot()) {
 					if (dist<0 || dist>this.end.getDistance(stat.getPosition())) {
@@ -148,6 +145,7 @@ public class Location implements Observer{
 		System.out.println("The destination station isn't available anymore.");
 		System.out.println("Please proceed to this new station");	
 		this.computeEnd();
+		this.getBike().getSpeed();
 	}
 	
 

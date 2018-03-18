@@ -1,7 +1,10 @@
-package myVelib;
+package myVelib.Card;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import myVelib.Location;
+import myVelib.User;
 
 public abstract class Card {
 	private int timeCredit;

@@ -1,6 +1,10 @@
 package myVelib;
 import java.util.*;
 
+import myVelib.Card.Card;
+import myVelib.Card.VlibreCard;
+import myVelib.Card.VmaxCard;
+
 public class User {
 	private String name;
 	private String firstName;
@@ -21,6 +25,7 @@ public class User {
 		this.name=name;
 		this.loc=null;
 		this.card=new NoCard();
+		Reseau.getInstance().addUser(this);
 	}
 	
 	public void getStatistics() {
