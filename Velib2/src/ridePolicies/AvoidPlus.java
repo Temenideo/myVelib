@@ -9,10 +9,13 @@ public class AvoidPlus implements RidePolicy{
 	public Station computeStart(Reseau reseau,GPScoord start,GPScoord end,String typeBike) throws NoStartStationAvailibleException {
 		double dist=-1;
 		Station startStation = null;
+		// On regarde le type de vélo voulu
 		if (typeBike.equals("Electrical")){
+			// on parcours la liste des stations en regardant qu'elle respecte les critères
 			for (Station stat : reseau.getStationList()) {
 				if(stat.getState().equals("On service")) {
 					if(stat.availableBikeE()) {
+						// on regarde si elle est plus proche
 						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
 							dist=start.getDistance(stat.getPosition());
 							startStation=stat;
@@ -33,9 +36,11 @@ public class AvoidPlus implements RidePolicy{
 				}
 			}
 		}
+		// si la variable startSation n'est pas null c'est qu'au moins une station valide les critères
 		if(startStation!=null) { 
 			return(startStation);
 		}
+		// si ce n'est pas le cas on renvoie une erreur
 		else
 			throw new NoStartStationAvailibleException();
 	}
@@ -46,9 +51,8 @@ public class AvoidPlus implements RidePolicy{
 		for (Station stat : reseau.getStationList()) {
 			if(stat.getState().equals("On service") && !stat.getTypeStation().equals("Plus")) {
 				if(stat.availableParkingSlot()) {
-					//voir si c'est bien start.get....
-					if (dist<0 || dist>start.getDistance(stat.getPosition())) {
-						dist=start.getDistance(stat.getPosition());
+					if (dist<0 || dist>end.getDistance(stat.getPosition())) {
+						dist=end.getDistance(stat.getPosition());
 						endStation=stat;
 					}
 				}

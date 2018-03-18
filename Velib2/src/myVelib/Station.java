@@ -138,7 +138,21 @@ public class Station implements Observable {
 		}
 		return false;
 	}
-	
+	/**
+	 * Donne le nombre de vélo mecanique disponible
+	 * @return
+	 */
+	public int NumberAvailableBikeM() {
+		int numb=0;
+		for (ParkingSlot pS : parkingSlotList) {
+			if (pS.getState().equals("Occupied")) {
+				if (pS.getBicycle().getTypeBike().equals("Mechanical")) {
+					numb+=1;
+				}
+			}
+		}
+		return numb;
+	}
 	/**
 	 * Method to check if the station currently holds an electrical bike in one of its parking slots.
 	 * @return
@@ -152,6 +166,21 @@ public class Station implements Observable {
 			}
 		}
 		return false;
+	}
+	/**
+	 * Donne de le nombre de vélo électrique disponible
+	 * @return
+	 */
+	public int NumberAvailableBikeE() {
+		int numb=0;
+		for (ParkingSlot pS : parkingSlotList) {
+			if (pS.getState().equals("Occupied")) {
+				if (pS.getBicycle().getTypeBike().equals("Electrical")) {
+					numb+=1;
+				}
+			}
+		}
+		return numb;
 	}
 		
 	/**
@@ -196,7 +225,15 @@ public class Station implements Observable {
 		}
 		
 	}
-	
+	@Override
+	public boolean equals(Object obj){
+		Station stat;
+		if (obj instanceof Station){
+			stat=(Station) obj;
+			return (stat.getStationID()==this.stationID);
+		}
+		return(false);
+	}
 	@Override
 	public String toString() {
 		return "Station"+ stationID+" "+name+" ("+position+") Parking Slots:" + parkingSlotList;
