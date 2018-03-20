@@ -8,10 +8,10 @@ public class BikeFactory {
 			return null;
 		}
 		if (bikeType.equalsIgnoreCase("Mechanical")) {
-			return new MBike();
+			return new Mechanical();
 		}
 		else if(bikeType.equalsIgnoreCase("Electrical")) {
-			return new EBike();
+			return new Electrical();
 		}
 		return null;
 	}
