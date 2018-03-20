@@ -120,7 +120,15 @@ public class User {
 	public String toString() {
 		return "User "+ userID;
 	}
-
+	@Override
+	public boolean equals(Object obj){
+		User user;
+		if (obj instanceof User){
+			user=(User) obj;
+			return (user.getUserID()==this.userID);
+		}
+		return(false);
+	}
 	
 	
 }

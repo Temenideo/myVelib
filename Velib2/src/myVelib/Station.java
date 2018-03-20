@@ -8,16 +8,16 @@ import java.util.ArrayList;
  *
  */
 public class Station implements Observable {
-	protected ArrayList<ParkingSlot> parkingSlotList;
-	protected String typeStation;
-	protected String state;
-	protected GPScoord position;
-	protected static Long compteur=(long) 0;
-	protected Long stationID;
-	protected String name;
+	private ArrayList<ParkingSlot> parkingSlotList;
+	private String typeStation;
+	private String state;
+	private GPScoord position;
+	private static Long compteur=(long) 0;
+	private Long stationID;
+	private String name;
 	private int freeSlots;
 	private int freeBikes;
-	protected ArrayList<Location> incomingRideList;
+	private ArrayList<Location> incomingRideList;
 	/**
 	 * Ce contructeur peux être amené à renvoyer une erreur dans le cas où le type de station ou le type d'état n'a pas été écrit correctement ou n'existe pas
 	 * @param parkingSlotList
@@ -139,6 +139,21 @@ public class Station implements Observable {
 	}
 	
 	/**
+	 * Donne le nombre de vélo mecanique disponible
+	 * @return
+	 */
+	public int NumberAvailableBikeM() {
+		int numb=0;
+		for (ParkingSlot pS : parkingSlotList) {
+			if (pS.getState().equals("Occupied")) {
+				if (pS.getBicycle().getTypeBike().equals("Mechanical")) {
+					numb+=1;
+				}
+			}
+		}
+		return numb;
+	}
+	/**
 	 * Method to check if the station currently holds an electrical bike in one of its parking slots.
 	 * @return
 	 */
@@ -154,6 +169,21 @@ public class Station implements Observable {
 			}
 		}
 		return false;
+	}
+	/**
+	 * Donne de le nombre de vélo électrique disponible
+	 * @return
+	 */
+	public int NumberAvailableBikeE() {
+		int numb=0;
+		for (ParkingSlot pS : parkingSlotList) {
+			if (pS.getState().equals("Occupied")) {
+				if (pS.getBicycle().getTypeBike().equals("Electrical")) {
+					numb+=1;
+				}
+			}
+		}
+		return numb;
 	}
 		
 	/**
@@ -197,6 +227,15 @@ public class Station implements Observable {
 			}
 		}
 		
+	}
+	@Override
+	public boolean equals(Object obj){
+		Station stat;
+		if (obj instanceof Station){
+			stat=(Station) obj;
+			return (stat.getStationID()==this.stationID);
+		}
+		return(false);
 	}
 	@Override
 	public String toString() {

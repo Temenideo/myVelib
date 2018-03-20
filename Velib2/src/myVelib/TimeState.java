@@ -1,6 +1,6 @@
 package myVelib;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 /**
  * Cette classe permet de créer un historique des états du ParkingSlot, elle se compose de deux attributs un état sous la forme d'un booleen
  * et une date de départ.
@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
  */
 public class TimeState {
 	private boolean occupied;
-	private LocalDateTime start;
-	public TimeState(boolean occupied, LocalDateTime start) {
+	private Date start;
+	public TimeState(boolean occupied, Date start) {
 		super();
 		this.occupied = occupied;
 		this.start = start;
@@ -18,13 +18,13 @@ public class TimeState {
 	public boolean isOccupied() {
 		return occupied;
 	}
-	public LocalDateTime getStart() {
+	public Date getStart() {
 		return start;
 	}
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
-	public void setStart(LocalDateTime start) {
+	public void setStart(Date start) {
 		this.start = start;
 	}
 	
