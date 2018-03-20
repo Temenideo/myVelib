@@ -38,7 +38,7 @@ public class ParkingSlot {
 		return state;
 	}
 	/**
-	 * Le changement d'état est aussi contrôlé afin seul les états possibles soit mis
+	 * Le changement d'état est aussi contrôlé afin que seuls les états possibles soit mis
 	 * @param state
 	 * @throws BadParkingSlotCreationException 
 	 */

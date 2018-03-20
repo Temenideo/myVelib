@@ -17,7 +17,6 @@ public class Station implements Observable {
 	protected String name;
 	private int freeSlots;
 	private int freeBikes;
-	protected ArrayList<Location> leavingRideList;
 	protected ArrayList<Location> incomingRideList;
 	/**
 	 * Ce contructeur peux être amené à renvoyer une erreur dans le cas où le type de station ou le type d'état n'a pas été écrit correctement ou n'existe pas
@@ -99,15 +98,11 @@ public class Station implements Observable {
 	public int getFreeSlots() {
 		return freeSlots;
 	}
-	public void setFreeSlots(int freeSlots) {
-		this.freeSlots = freeSlots;
-	}
+	
 	public int getFreeBikes() {
 		return freeBikes;
 	}
-	public void setFreeBikes(int freeBikes) {
-		this.freeBikes = freeBikes;
-	}
+	
 	/**
 	 * Method to recompute the number of available parking slots and bikes
 	 */
@@ -130,6 +125,9 @@ public class Station implements Observable {
 	 * Method to check if the station currently holds an electrical bike in one of its parking slots.
 	 */	
 	public boolean availableBikeM() {
+		if(freeBikes==0) {
+			return false;
+		}
 		for (ParkingSlot pS : parkingSlotList) {
 			if (pS.getState().equals("Occupied")) {
 				if (pS.getBicycle().getTypeBike().equals("Mechanical")) {
@@ -145,6 +143,9 @@ public class Station implements Observable {
 	 * @return
 	 */
 	public boolean availableBikeE() {
+		if(freeBikes==0) {
+			return false;
+		}
 		for (ParkingSlot pS : parkingSlotList) {
 			if (pS.getState().equals("Occupied")) {
 				if (pS.getBicycle().getTypeBike().equals("Electrical")) {
