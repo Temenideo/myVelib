@@ -2,7 +2,7 @@ package myVelib.Bicycle;
 
 import myVelib.BadBicycleCreationException;
 
-public abstract class Bicycle {
+public class Bicycle {
 	private static Long compteur=(long) 100000;
 	private long bikeID;
 	protected String typeBike;
