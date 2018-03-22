@@ -23,7 +23,6 @@ public class LocationTest {
 			res.getStationList().get(i-1).addParkingSlot(new ParkingSlot(new Mechanical(), "Occupied",res.getStationList().get(i-1)));
 		}
 		Location loc1=new Location(user,res.getStationList().get(0));
-		System.out.println(res.getStationList().get(0).toString());
 		loc1.takeBike(res.getStationList().get(0),"Mechanical");
 		assertNotEquals(null, loc1.getBike());
 	}

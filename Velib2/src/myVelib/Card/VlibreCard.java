@@ -25,6 +25,7 @@ public class VlibreCard extends Card{
 			if(hours<1) {
 				cost+=costMH1;
 			}
+			// il manque l'autre cas du coup ou la durée est plus longue qu'une heure et qu'il peux pas tout payer
 			else if (min<this.getTimeCredit()) {
 				this.setTimeCredit(getTimeCredit()-(int)min);
 				hours--;
@@ -36,6 +37,7 @@ public class VlibreCard extends Card{
 			if(hours<1) {
 				cost+=costEH1;
 			}
+			// il manque l'autre cas du coup ou la durée est plus longue qu'une heure et qu'il peux pas tout payer
 			else if (min<this.getTimeCredit()) {
 				this.setTimeCredit(getTimeCredit()-(int)min);
 				hours--;

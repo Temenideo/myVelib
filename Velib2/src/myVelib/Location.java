@@ -47,7 +47,7 @@ public class Location implements Observer{
 	 * If a bike is found, the location starts, hence the start time of the location is defined and a bike is linked to this location.
 	 * If no bike is found, then the method gives an error message and finds another departure station fitting with the user's settings.
 	 */
-
+//Pour l'instant aucune vérification n'est faite pour vérifier que l'user n'a pas déjà une location en cours
 	public void takeBike(Station departure,String type) throws BadParkingSlotCreationException{
 		while(bike==null) {
 			for(ParkingSlot pS : departure.getParkingSlotList()) {

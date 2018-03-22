@@ -1,8 +1,9 @@
-package myVelib;
+package myVelib.Card;
 
 import java.util.concurrent.TimeUnit;
 
-import myVelib.Card.Card;
+import myVelib.Location;
+import myVelib.User;
 
 public class NoCard extends Card{
 	public double costMH1=1;
@@ -14,6 +15,7 @@ public class NoCard extends Card{
 	
 	@Override
 	public int getCharge(Location loc, User user) {
+		//le mec a pas de carte et il arrive quand même a gagner du crédit?
 		if (loc.getArrival().getTypeStation().equals("Plus")) {
 			this.setTimeCredit(this.getTimeCredit()+5);
 		}

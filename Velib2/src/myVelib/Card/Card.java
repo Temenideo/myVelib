@@ -17,6 +17,7 @@ public abstract class Card {
 	 * This method outputs as a long the difference in minutes between two dates. It is used to compute the rental time of a location
 	 * 
 	 */
+	// aucune certitude que le temps date2 est supérieur au temps date1 (à voir si je casse pas juste les couilles)
 	public static long getDuration(Date date1, Date date2, TimeUnit timeUnit) {
 		long diffInMillies = date2.getTime()-date1.getTime();
 		return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
