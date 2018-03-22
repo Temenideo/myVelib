@@ -1,11 +1,14 @@
 package myVelib;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import myVelib.Card.Card;
 import myVelib.Bicycle.Bicycle;
+import myVelib.Bicycle.Electrical;
+import myVelib.Bicycle.Mechanical;
 import ridePolicies.RidePolicy;
 
 public class Location implements Observer{
@@ -19,7 +22,7 @@ public class Location implements Observer{
 	private boolean hasStarted;
 	private User user;
 	private RidePolicy ridePolicy;
-	
+
 	public Location(User user, GPScoord start, GPScoord end) {
 		this.user=user;
 		this.start=start;
@@ -28,7 +31,7 @@ public class Location implements Observer{
 		this.user.setLocation(this);
 		Reseau.getInstance().addLocation(this);
 	}
-	
+
 	public Location(User user, Station departure) {
 		this.user=user;
 		this.departure=departure;
@@ -37,19 +40,24 @@ public class Location implements Observer{
 		this.user.setLocation(this);
 		Reseau.getInstance().addLocation(this);
 	}
-	
+
 	/**
 	 * This method tries to retrieve a bike from the departure station. 
 	 * It goes through all of the station's parking slot until it has found one that is holding a bike.
 	 * If a bike is found, the location starts, hence the start time of the location is defined and a bike is linked to this location.
 	 * If no bike is found, then the method gives an error message and finds another departure station fitting with the user's settings.
 	 */
-	
-	public void takeBike(Station departure) throws BadParkingSlotCreationException{
+
+	public void takeBike(Station departure,String type) throws BadParkingSlotCreationException{
 		while(bike==null) {
 			for(ParkingSlot pS : departure.getParkingSlotList()) {
-				bike=pS.getBicycle();
+				if (pS.getBicycle().getTypeBike()==type){
+
+					bike=pS.getBike();
+					break;}
 			}
+			//cela l'imprime à chaque fois que c'est marché ou non...
+			// en plus si on écrit un type random style clubraidathle cela renvoi un message qui a pas trop de lien
 			System.out.println("No bike is available in this station");
 			break;
 		}
@@ -59,11 +67,19 @@ public class Location implements Observer{
 			this.hasStarted=true;
 			this.user.setRideNumber(user.getRideNumber()+1);
 		}
+		// pour olivier je vois pas pourquoi il y a un computeStart
 		else {
 			this.computeStart();
 		}
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Location [timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", departure=" + departure + ", arrival="
+				+ arrival + ", bike=" + bike + ", start=" + start + ", end=" + end + ", hasStarted=" + hasStarted
+				+ ", user=" + user + ", ridePolicy=" + ridePolicy + "]";
+	}
+
 	/**
 	 * This method tries to store its bike in the arrival station. 
 	 * It goes through all of the station's parking slot until it has found one that isn't holding a bike or free.
@@ -71,13 +87,15 @@ public class Location implements Observer{
 	 * and the cost of the location is computed.
 	 * If no free parking slot is found, this method outputs an error message and finds another arrival station fitting with the user's settings.
 	 */
-	
+
 	public void returnBike(Station arrival) throws BadParkingSlotCreationException {
 		boolean stored = false;
 		while(stored==false) {
 			for(ParkingSlot pS : arrival.getParkingSlotList()){
-				stored = pS.storeBike(this.bike);			
+				stored = pS.storeBike(this.bike);		
+				break;
 			}
+			//cela l'imprime à chaque fois que c'est marché ou non...
 			System.out.println("No parking slot is available in this station");
 			break;
 		}
@@ -91,14 +109,14 @@ public class Location implements Observer{
 			this.bike=null;
 			System.out.println("Bike location charged "+charge+"€");
 			this.user.setLocation(null);
-			
+
 		}
 		else {
 			this.computeEnd();
 		}
-				
+
 	}
-	
+
 	public void computeStart() {
 		double dist=-1;
 		Station startStation = null;
@@ -118,7 +136,7 @@ public class Location implements Observer{
 		else
 			System.out.println("No station fitting your criteria is availabale for departure, please try again later or change your ride settings");
 	}
-	
+
 	public void computeEnd() {
 		double dist=-1;
 		Station endStation = null;
@@ -139,19 +157,19 @@ public class Location implements Observer{
 		else
 			System.out.println("No station fitting your criteria is availabale for arrival, please try again later or change your ride settings");
 	}
-	
+
 	@Override
 	public void updateArrival(Station arrival) {
 		System.out.println("The destination station isn't available anymore.");
 		System.out.println("Please proceed to this new station");	
 		this.computeEnd();
 	}
-	
+
 
 	public Date getTimeStart() {
 		return timeStart;
 	}
-	
+
 	public void setTimeStart(Date timeStart) {
 		this.timeStart = timeStart;
 	}
@@ -159,7 +177,7 @@ public class Location implements Observer{
 	public Date getTimeEnd() {
 		return timeEnd;
 	}
-	
+
 	public void setTimeEnd(Date timeEnd) {
 		this.timeEnd = timeEnd;
 	}
@@ -171,15 +189,15 @@ public class Location implements Observer{
 	public void setArrival(Station arrival) {
 		this.arrival = arrival;
 	}
-	
+
 	public Bicycle getBike() {
 		return bike;
 	}
-	
+
 	public void setBike(Bicycle bike) {
 		this.bike = bike;
 	}
-	
+
 	public Station getDeparture() {
 		return departure;
 	}
@@ -226,6 +244,5 @@ public class Location implements Observer{
 	public void setRidePolicy(RidePolicy ridePolicy) {
 		this.ridePolicy = ridePolicy;
 	}
-
 
 }
