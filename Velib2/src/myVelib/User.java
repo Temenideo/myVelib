@@ -1,6 +1,4 @@
 package myVelib;
-import java.util.*;
-
 import myVelib.Card.Card;
 import myVelib.Card.NoCard;
 import myVelib.Card.VlibreCard;
@@ -18,6 +16,7 @@ public class User {
 	private Location loc;
 	private Card card;
 	private GPScoord position;
+	private static double userSpeed = 5;
 	
 	public User(String name, String firstName) {
 		this.userID=IDCount;
@@ -130,6 +129,8 @@ public class User {
 		}
 		return(false);
 	}
-	
-	
+
+	public static double getUserSpeed() {
+		return userSpeed;
+	}	
 }
