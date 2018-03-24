@@ -7,14 +7,14 @@ import myVelib.Station;
 public class ShortestPath implements RidePolicy{
 
 	@Override
-	public Station computeStart(Reseau reseau, GPScoord start, GPScoord end, String typeBike)
+	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
 			throws NoStartStationAvailibleException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Station computeEnd(Reseau reseau, GPScoord start, GPScoord end, String typeBike)
+	public Station computeEnd(GPScoord start, GPScoord end, String typeBike)
 			throws NoEndStationAvailibleExecption {
 		// TODO Auto-generated method stub
 		return null;
