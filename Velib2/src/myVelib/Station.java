@@ -1,6 +1,8 @@
 package myVelib;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * La classe station créera les objets de même nom
@@ -211,5 +213,48 @@ public class Station implements Observable {
 	@Override
 	public String toString() {
 		return "Station"+ stationID+" "+name+" ("+position+") Parking Slots:" + parkingSlotList;
+	}
+	/**
+	 * Fonction qui donne le nombre d'opération de location dans cette station
+	 * @return 
+	 */
+	public int numberOfRentsOperation(){
+		ArrayList<Location> locationList=Reseau.getInstance().getLocationList();
+		int compteur=0;
+		for (Location loc :locationList){
+			if(loc.getDeparture().equals(this) && loc.isHasStarted()){
+				compteur++;
+			}
+			
+		}
+		return(compteur);
+	}
+	/**
+	 * Fonction qui donne le nombre d'opération de retrour de vélo dans cette station
+	 * @return
+	 */
+	public int numberOfReturnOperation(){
+		ArrayList<Location> locationList=Reseau.getInstance().getLocationList();
+		int compteur=0;
+		for (Location loc :locationList){
+			if(loc.getEnd().equals(this) && !loc.getTimeEnd().equals(null)){
+				compteur++;
+			}
+			
+		}
+		return(compteur);
+	}
+	public float getRateOfOccupation(Date start,Date end){
+		long diffInMillies = end.getTime()-start.getTime();
+		float duration=TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		float rate=0;
+		if (duration>0){
+			for(ParkingSlot s:parkingSlotList){
+				rate=rate+s.getTimeOccupied(start, end);
+			}
+			rate=rate/(parkingSlotList.size()*duration);
+		}
+
+		return(rate);
 	}
 }

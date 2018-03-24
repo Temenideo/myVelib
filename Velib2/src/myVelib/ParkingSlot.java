@@ -1,6 +1,9 @@
 package myVelib;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import myVelib.Bicycle.Bicycle;
 /**
@@ -24,16 +27,24 @@ public class ParkingSlot {
 	public ParkingSlot(Bicycle bicycle, String State, Station station) throws BadParkingSlotCreationException {
 		super();
 		if (State=="Occupied" || State=="Free" ||State=="Broken"){
-		compteur=compteur+1;
-		slotID=compteur;
-		this.bicycle = bicycle;
-		this.state= State;
-		this.station=station;
-		this.history = new ArrayList<TimeState>();}
+			compteur=compteur+1;
+			slotID=compteur;
+			this.bicycle = bicycle;
+			this.state= State;
+			this.station=station;
+			this.history = new ArrayList<TimeState>();
+			if (State=="Free"){
+				history.add(new TimeState(false,Calendar.getInstance().getTime()));
+			}
+			else{
+				history.add(new TimeState(true,Calendar.getInstance().getTime()));
+			}
+		}
+
 		else{
 			throw new BadParkingSlotCreationException(State);}
 	}
-	
+
 	public String getState() {
 		return state;
 	}
@@ -46,6 +57,13 @@ public class ParkingSlot {
 		if (state=="Occupied" || state=="Free" ||state=="Broken"){
 			this.state = state;
 			station.calcul();
+			history.get(history.size()-1).setEnd(Calendar.getInstance().getTime());
+			if (state=="Free"){
+				history.add(new TimeState(false,Calendar.getInstance().getTime()));
+			}
+			else{
+				history.add(new TimeState(true,Calendar.getInstance().getTime()));
+			}
 			}
 		else{
 			throw new BadParkingSlotCreationException(state);}
@@ -75,8 +93,27 @@ public class ParkingSlot {
 			return true;
 		}
 	}
-		
-		
+	/**
+	 * 	
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public long getTimeOccupied(Date start,Date end){
+		long timeOccupied=0;
+		int longueur=history.size();
+		for(int i=0;i<longueur-1;i++){
+			if (history.get(i).getStart().after(start) && history.get(i).getEnd().before(end) && !history.get(i).isOccupied()){
+				long diffInMillies = history.get(i).getEnd().getTime()-history.get(i).getStart().getTime();
+				timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+			}
+		}
+		if (history.get(longueur-1).getStart().after(start) && !history.get(longueur-1).isOccupied()){
+			long diffInMillies = Calendar.getInstance().getTime().getTime()-history.get(longueur-1).getStart().getTime();
+			timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		}
+		return(timeOccupied);
+	}
 	public Long getSlotID() {
 		return slotID;
 	}
