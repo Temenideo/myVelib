@@ -5,9 +5,9 @@ import myVelib.Reseau;
 import myVelib.Station;
 
 public class Uniformity implements RidePolicy{
-	public Station computeStart(Reseau reseau, GPScoord start, GPScoord end, String typeBike)
+	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
 			throws NoStartStationAvailibleException {
-
+		Reseau reseau = Reseau.getInstance();
 		double dist=-1;
 		Station startStation = null;
 		int numberOfAvailibleBike=0;
@@ -40,7 +40,8 @@ public class Uniformity implements RidePolicy{
 		else
 			throw new NoStartStationAvailibleException();
 	}
-	public Station computeEnd(Reseau reseau,GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailibleExecption {
+	public Station computeEnd(GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailibleExecption {
+		Reseau reseau = Reseau.getInstance();
 		double dist=-1;
 		Station endStation = null;
 		// ici on trouve la station la plus proche du lieu d'arriver
