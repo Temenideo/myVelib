@@ -2,7 +2,6 @@ package myVelib;
 
 import java.util.ArrayList;
 
-import myVelib.Bicycle.Bicycle;
 import myVelib.Bicycle.Electrical;
 import myVelib.Bicycle.Mechanical;
 
