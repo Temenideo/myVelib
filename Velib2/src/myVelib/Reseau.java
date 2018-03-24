@@ -77,7 +77,7 @@ public class Reseau {
 	 * @return
 	 */
 	
-	public ArrayList<Station> getPlusStation(){
+	public ArrayList<Station> getPlusStationList(){
 		ArrayList<Station> plusList = new ArrayList<Station>();
 		for (Station s : stationList) {
 			if(s.getTypeStation().equalsIgnoreCase("Plus")) {
@@ -92,7 +92,7 @@ public class Reseau {
 	 * @return
 	 */
 	
-	public ArrayList<Station> getStandardStation(){
+	public ArrayList<Station> getStandardStationList(){
 		ArrayList<Station> standardList = new ArrayList<Station>();
 		for (Station s : stationList) {
 			if(s.getTypeStation().equalsIgnoreCase("Standard")) {
