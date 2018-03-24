@@ -11,7 +11,9 @@ import java.util.Locale;
 import myVelib.Station;
 
 public class LeastOccupied implements SortingMethods {
-
+	/**
+	 * Description a faire
+	 */
 	@Override
 	public void sortStation(ArrayList<Station> stationList) throws ParseException {
 		ArrayList<Float> rateNumber=new ArrayList<Float>();

@@ -11,6 +11,9 @@ public class MostUsed implements SortingMethods {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * Description a faire
+	 */
 	@Override
 	public void sortStation(ArrayList<Station> stationList) throws ParseException {
 		ArrayList<Integer> usedNumber=new ArrayList<Integer>();

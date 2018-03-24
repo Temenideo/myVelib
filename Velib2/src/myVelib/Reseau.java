@@ -104,7 +104,11 @@ public class Reseau {
 		}
 		return standardList;
 	}
-	
+	/**
+	 * Description a faire
+	 * @param Sm
+	 * @throws ParseException
+	 */
 	public void SortStation(SortingMethods Sm) throws ParseException{
 		Sm.sortStation(getStationList());
 	}
