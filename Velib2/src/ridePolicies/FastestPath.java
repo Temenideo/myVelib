@@ -7,16 +7,17 @@ import myVelib.Station;
 public class FastestPath implements RidePolicy{
 
 	@Override
-	public Station computeStart(Reseau reseau, GPScoord start, GPScoord end, String typeBike)
-			throws NoStartStationAvailibleException {
-		// TODO Auto-generated method stub
+	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
+			throws NoStartStationAvailibleException, NoEndStationAvailibleExecption {
+		Station arrival = computeEnd(start,end,typeBike);
+		Reseau reseau = Reseau.getInstance();
 		return null;
 	}
 
 	@Override
-	public Station computeEnd(Reseau reseau, GPScoord start, GPScoord end, String typeBike)
+	public Station computeEnd(GPScoord start,GPScoord end,String typeBike)
 			throws NoEndStationAvailibleExecption {
-		// TODO Auto-generated method stub
+		Reseau reseau = Reseau.getInstance();
 		return null;
 	}
 

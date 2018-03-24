@@ -6,6 +6,6 @@ import myVelib.Station;
 
 public interface RidePolicy {
 	
-	public Station computeStart(Reseau reseau,GPScoord start,GPScoord end,String typeBike) throws NoStartStationAvailibleException;
-	public Station computeEnd(Reseau reseau,GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailibleExecption;
+	public Station computeStart(GPScoord start,GPScoord end,String typeBike) throws NoStartStationAvailibleException, NoEndStationAvailibleExecption;
+	public Station computeEnd(GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailibleExecption;
 }
