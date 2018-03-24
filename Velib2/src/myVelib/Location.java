@@ -1,14 +1,11 @@
 package myVelib;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import myVelib.Card.Card;
 import myVelib.Bicycle.Bicycle;
-import myVelib.Bicycle.Electrical;
-import myVelib.Bicycle.Mechanical;
 import ridePolicies.RidePolicy;
 
 public class Location implements Observer{
@@ -122,7 +119,7 @@ public class Location implements Observer{
 		Station startStation = null;
 		for (Station stat : Reseau.getInstance().getStationList()) {
 			if(stat.getState().equals("On service")) {
-				if(stat.availableBikeE()||stat.availableBikeM()) {
+				if(stat.availableBike(null)) {
 					if (dist<0 || dist>this.start.getDistance(stat.getPosition())) {
 						dist=this.start.getDistance(stat.getPosition());
 						startStation=stat;

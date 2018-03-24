@@ -12,14 +12,13 @@ public class Uniformity implements RidePolicy{
 		Station startStation = null;
 		int numberOfAvailibleBike=0;
 		// ici on trouve la station la plus proche du lieu de départ
-		if (typeBike.equals("Electrical")){
 			for (Station stat : reseau.getStationList()) {
 				if(stat.getState().equals("On service")) {
-					if(stat.availableBikeE()) {
+					if(stat.availableBike(typeBike)) {
 						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
 							dist=start.getDistance(stat.getPosition());
 							startStation=stat;
-							numberOfAvailibleBike=stat.NumberAvailableBikeE();
+							numberOfAvailibleBike=stat.NumberAvailableBike(typeBike);
 						}
 					}
 				}
@@ -27,36 +26,13 @@ public class Uniformity implements RidePolicy{
 			// ici on compare si d'autres station aux alentours ont plus de vélo disponible
 			for (Station stat : reseau.getStationList()) {
 				if(stat.getState().equals("On service") && !stat.equals(startStation)) {
-					if(stat.availableBikeE()) {
-						if (numberOfAvailibleBike<stat.NumberAvailableBikeE() || 1.05*dist>start.getDistance(stat.getPosition())) {
+					if(stat.availableBike(typeBike)) {
+						if (numberOfAvailibleBike<stat.NumberAvailableBike(typeBike) && 1.05*dist>start.getDistance(stat.getPosition())) {
 							return(stat);
 						}
 					}
 				}
 			}
-		}
-		if (typeBike.equals("Mecanical")){
-			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service")) {
-					if(stat.availableBikeM()) {
-						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
-							dist=start.getDistance(stat.getPosition());
-							startStation=stat;
-							numberOfAvailibleBike=stat.NumberAvailableBikeM();
-						}
-					}
-				}
-			}
-			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service") && !stat.equals(startStation)) {
-					if(stat.availableBikeM()) {
-						if (numberOfAvailibleBike<stat.NumberAvailableBikeM() || 1.05*dist>start.getDistance(stat.getPosition())) {
-							return(stat);
-						}
-					}
-				}
-			}
-		}
 		// se cas se présente si la station la plus proche est aussi celle avec le plus de vélo
 		if(startStation!=null) { 
 			return(startStation);
@@ -81,8 +57,8 @@ public class Uniformity implements RidePolicy{
 		// ici on compare si d'autres station aux alentours ont plus de place disponible
 		for (Station stat : reseau.getStationList()) {
 			if(stat.getState().equals("On service") && !stat.equals(endStation)) {
-				if(stat.availableBikeE()) {
-					if (endStation.getFreeSlots()<stat.getFreeSlots() || 1.05*dist>start.getDistance(stat.getPosition())) {
+				if(stat.availableBike(typeBike)) {
+					if (endStation.getFreeSlots()<stat.getFreeSlots() && 1.05*dist>start.getDistance(stat.getPosition())) {
 						return(stat);
 					}
 				}

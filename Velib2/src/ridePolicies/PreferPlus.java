@@ -14,10 +14,9 @@ public class PreferPlus implements RidePolicy{
 
 		double dist=-1;
 		Station startStation = null;
-		if (typeBike.equals("Electrical")){
 			for (Station stat : reseau.getStationList()) {
 				if(stat.getState().equals("On service")) {
-					if(stat.availableBikeE()) {
+					if(stat.availableBike(typeBike)) {
 						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
 							dist=start.getDistance(stat.getPosition());
 							startStation=stat;
@@ -25,19 +24,6 @@ public class PreferPlus implements RidePolicy{
 					}
 				}
 			}
-		}
-		if (typeBike.equals("Mecanical")){
-			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service")) {
-					if(stat.availableBikeM()) {
-						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
-							dist=start.getDistance(stat.getPosition());
-							startStation=stat;
-						}
-					}
-				}
-			}
-		}
 		if(startStation!=null) { 
 			return(startStation);
 		}

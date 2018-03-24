@@ -122,15 +122,18 @@ public class Station implements Observable {
 	}
 	
 	/**
-	 * Method to check if the station currently holds an electrical bike in one of its parking slots.
+	 * Method to check if the station currently holds a bike of the desired type in one of its parking slots.
 	 */	
-	public boolean availableBikeM() {
+	public boolean availableBike(String typeBike) {
 		if(freeBikes==0) {
 			return false;
 		}
+		if(typeBike==null) {
+			return (availableBike("Electrical")||availableBike("Mechanical"));
+		}
 		for (ParkingSlot pS : parkingSlotList) {
 			if (pS.getState().equals("Occupied")) {
-				if (pS.getBicycle().getTypeBike().equals("Mechanical")) {
+				if (pS.getBicycle().getTypeBike().equalsIgnoreCase(typeBike)) {
 				return true;
 				}
 			}
@@ -139,46 +142,14 @@ public class Station implements Observable {
 	}
 	
 	/**
-	 * Donne le nombre de vélo mecanique disponible
+	 * Calculates the number of bikes of the desired type that the station currently holds
 	 * @return
 	 */
-	public int NumberAvailableBikeM() {
+	public int NumberAvailableBike(String typeBike) {
 		int numb=0;
 		for (ParkingSlot pS : parkingSlotList) {
 			if (pS.getState().equals("Occupied")) {
-				if (pS.getBicycle().getTypeBike().equals("Mechanical")) {
-					numb+=1;
-				}
-			}
-		}
-		return numb;
-	}
-	/**
-	 * Method to check if the station currently holds an electrical bike in one of its parking slots.
-	 * @return
-	 */
-	public boolean availableBikeE() {
-		if(freeBikes==0) {
-			return false;
-		}
-		for (ParkingSlot pS : parkingSlotList) {
-			if (pS.getState().equals("Occupied")) {
-				if (pS.getBicycle().getTypeBike().equals("Electrical")) {
-				return true;
-				}
-			}
-		}
-		return false;
-	}
-	/**
-	 * Donne de le nombre de vélo électrique disponible
-	 * @return
-	 */
-	public int NumberAvailableBikeE() {
-		int numb=0;
-		for (ParkingSlot pS : parkingSlotList) {
-			if (pS.getState().equals("Occupied")) {
-				if (pS.getBicycle().getTypeBike().equals("Electrical")) {
+				if (pS.getBicycle().getTypeBike().equalsIgnoreCase(typeBike)) {
 					numb+=1;
 				}
 			}

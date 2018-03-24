@@ -9,12 +9,10 @@ public class AvoidPlus implements RidePolicy{
 	public Station computeStart(Reseau reseau,GPScoord start,GPScoord end,String typeBike) throws NoStartStationAvailibleException {
 		double dist=-1;
 		Station startStation = null;
-		// On regarde le type de vélo voulu
-		if (typeBike.equals("Electrical")){
 			// on parcours la liste des stations en regardant qu'elle respecte les critères
 			for (Station stat : reseau.getStationList()) {
 				if(stat.getState().equals("On service")) {
-					if(stat.availableBikeE()) {
+					if(stat.availableBike(typeBike)) {
 						// on regarde si elle est plus proche
 						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
 							dist=start.getDistance(stat.getPosition());
@@ -23,19 +21,6 @@ public class AvoidPlus implements RidePolicy{
 					}
 				}
 			}
-		}
-		if (typeBike.equals("Mecanical")){
-			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service")) {
-					if(stat.availableBikeM()) {
-						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
-							dist=start.getDistance(stat.getPosition());
-							startStation=stat;
-						}
-					}
-				}
-			}
-		}
 		// si la variable startSation n'est pas null c'est qu'au moins une station valide les critères
 		if(startStation!=null) { 
 			return(startStation);
