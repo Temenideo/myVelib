@@ -139,10 +139,10 @@ public class Station implements Observable {
 		int free = 0;
 		int bikes = 0;
 		for (ParkingSlot pS : parkingSlotList) {
-			if(pS.getState().equals("Free")) {
+			if(pS.getState().equalsIgnoreCase("Free")) {
 				free++;
 			}
-			if(pS.getState().equals("Occupied")) {
+			if(pS.getState().equalsIgnoreCase("Occupied")) {
 				bikes++;
 			}
 		}
