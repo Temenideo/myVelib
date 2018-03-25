@@ -41,7 +41,7 @@ public class ParkingSlotTest {
 		String string = "2018.03.25 AD at 12:08:56 PDT";
 		String string2 = "2018.03.25 AD at 12:38:56 PDT";
 		String string3 = "2018.03.25 AD at 15:38:56 PDT";
-		String string4 = "2018.03.25 AD at 16:38:56 PDT";
+		String string4 = "2018.03.25 AD at 16:39:56 PDT";
 		DateFormat format = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z", Locale.ENGLISH);
 		Date datestart = format.parse(string);
 		Date dateend = format.parse(string2);
@@ -54,6 +54,7 @@ public class ParkingSlotTest {
 		pS.getHistory().add(new TimeState(true,dateend2));
 		pS.getHistory().get(2).setEnd(dateend3);
 		assertEquals(pS.getTimeOccupied(datestart, dateend3),30);
+		
 		
 	}
 
