@@ -107,34 +107,36 @@ public class ParkingSlot {
 		long timeOccupied=0;
 		int longueur=history.size();
 		for(int i=0;i<longueur-1;i++){
+			System.out.println(timeOccupied);
 			// prends en compte les cas ou le timeState est inclus dans l'intervalle d'étude
-			if (history.get(i).getStart().after(start) && history.get(i).getEnd().before(end) && !history.get(i).isOccupied()){
+			if (history.get(i).getStart().after(start) && history.get(i).getEnd().before(end) && history.get(i).isOccupied()){
 				long diffInMillies = history.get(i).getEnd().getTime()-history.get(i).getStart().getTime();
 				timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+				System.out.println("aaaa");
 			}
 			// prends en compte les cas ou le timestate possède une partie dans l'intervalle mais sa fin est hors de la fenetre d'étude
-			if(history.get(i).getStart().after(start) && history.get(i).getEnd().after(end) && !history.get(i).isOccupied() && history.get(i).getStart().before(end)){
+			if(history.get(i).getStart().after(start) && history.get(i).getEnd().after(end) && history.get(i).isOccupied() && history.get(i).getStart().before(end)){
 				long diffInMillies = end.getTime()-history.get(i).getStart().getTime();
 				timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 			}
 			// prends en compte les cas ou le timestate possède une partie dans l'intervalle mais son début est hors de la fenetre d'étude
-			if(history.get(i).getEnd().before(end) && history.get(i).getEnd().after(start) && !history.get(i).isOccupied() && history.get(i).getStart().before(start)){
+			if(history.get(i).getEnd().before(end) && history.get(i).getEnd().after(start) && history.get(i).isOccupied() && history.get(i).getStart().before(start)){
 				long diffInMillies = history.get(i).getEnd().getTime()-start.getTime();
 				timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 			}
 			// prends en compte les cas ou le timestate inclu l'intervalle d'étude
-			if(history.get(i).getEnd().after(end) && !history.get(i).isOccupied() && history.get(i).getStart().before(start)){
+			if(history.get(i).getEnd().after(end) && history.get(i).isOccupied() && history.get(i).getStart().before(start)){
 				long diffInMillies = end.getTime()-start.getTime();
 				timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 			}
 		}
 		// permet de considerer le dernier timestate qui n'a pas encore d'attribut end et avec un début dans l'intervalle
-		if (history.get(longueur-1).getStart().after(start) && !history.get(longueur-1).isOccupied() && history.get(longueur-1).getStart().before(end)){
+		if (history.get(longueur-1).getStart().after(start) && history.get(longueur-1).isOccupied() && history.get(longueur-1).getStart().before(end)){
 			long diffInMillies = Calendar.getInstance().getTime().getTime()-history.get(longueur-1).getStart().getTime();
 			timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 		}
 		// permet de considerer le dernier timestate qui n'a pas encore d'attribut end et avec un début avant l'intervalle
-		if (history.get(longueur-1).getStart().before(start) && !history.get(longueur-1).isOccupied()){
+		if (history.get(longueur-1).getStart().before(start) && history.get(longueur-1).isOccupied()){
 			long diffInMillies = Calendar.getInstance().getTime().getTime()-start.getTime();
 			timeOccupied=timeOccupied+TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 		}
