@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import myVelib.Card.Card;
+import myVelib.ridePolicies.NoEndStationAvailibleExecption;
+import myVelib.ridePolicies.NoStartStationAvailibleException;
 import myVelib.ridePolicies.RidePolicy;
 import myVelib.Bicycle.Bicycle;
 
@@ -17,15 +19,20 @@ public class Location implements Observer{
 	private GPScoord start;
 	private GPScoord end;
 	private boolean hasStarted;
+	private boolean hasEnded;
 	private User user;
 	private RidePolicy ridePolicy;
 
-	public Location(User user, GPScoord start, GPScoord end) {
+	public Location(User user, GPScoord start, GPScoord end, RidePolicy ridePolicy, String typeBike) throws NoEndStationAvailibleExecption, NoStartStationAvailibleException {
 		this.user=user;
 		this.start=start;
 		this.end=end;
 		this.hasStarted=false;
+		this.hasEnded=false;
 		this.user.setLocation(this);
+		this.ridePolicy=ridePolicy;
+		this.departure=ridePolicy.computeStart(start, end, typeBike);
+		this.departure=ridePolicy.computeEnd(start, end, typeBike);
 		Reseau.getInstance().addLocation(this);
 	}
 
@@ -35,6 +42,7 @@ public class Location implements Observer{
 		this.hasStarted=true;
 		this.timeStart=Calendar.getInstance().getTime();
 		this.user.setLocation(this);
+		this.hasEnded=false;
 		Reseau.getInstance().addLocation(this);
 	}
 
@@ -98,6 +106,7 @@ public class Location implements Observer{
 			this.user.setTotalTime(user.getTotalTime()+(int)duration);
 			this.user.setTotalCharges(user.getTotalCharges()+charge);
 			this.bike=null;
+			this.hasEnded=false;
 			System.out.println("Bike location charged "+charge+"€");
 			this.user.setLocation(null);
 
@@ -107,6 +116,14 @@ public class Location implements Observer{
 			this.computeEnd();
 		}
 
+	}
+
+	public boolean isHasEnded() {
+		return hasEnded;
+	}
+
+	public void setHasEnded(boolean hasEnded) {
+		this.hasEnded = hasEnded;
 	}
 
 	public void computeStart() {

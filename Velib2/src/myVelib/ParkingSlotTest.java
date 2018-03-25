@@ -49,10 +49,10 @@ public class ParkingSlotTest {
 		Date dateend3 = format.parse(string4);
 		pS.getHistory().add(new TimeState(true,datestart));
 		pS.getHistory().get(0).setEnd(dateend);
-		pS.getHistory().add(new TimeState(true,dateend));
-		pS.getHistory().get(1).setEnd(dateend2);
-		pS.getHistory().add(new TimeState(true,dateend2));
-		pS.getHistory().get(2).setEnd(dateend3);
+		//pS.getHistory().add(new TimeState(true,dateend));
+		//pS.getHistory().get(1).setEnd(dateend2);
+		//pS.getHistory().add(new TimeState(true,dateend2));
+		//pS.getHistory().get(2).setEnd(dateend3);
 		assertEquals(pS.getTimeOccupied(datestart, dateend3),30);
 		
 		
