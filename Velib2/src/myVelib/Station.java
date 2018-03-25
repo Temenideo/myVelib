@@ -51,10 +51,10 @@ public class Station implements Observable {
 		else {
 			throw new BadTypeStationCreationException(typeStation);
 		}
-		
-		
+
+
 	}
-	
+
 	public Station(String typeStation, String state, GPScoord position,
 			String name) throws BadStateStationCreationException,BadTypeStationCreationException {
 		super();
@@ -77,10 +77,10 @@ public class Station implements Observable {
 		else {
 			throw new BadTypeStationCreationException(typeStation);
 		}
-		
-		
+
+
 	}
-	
+
 	public String getTypeStation() {
 		return typeStation;
 	}
@@ -123,15 +123,15 @@ public class Station implements Observable {
 	public String getName() {
 		return name;
 	}
-	
+
 	public int getFreeSlots() {
 		return freeSlots;
 	}
-	
+
 	public int getFreeBikes() {
 		return freeBikes;
 	}
-	
+
 	/**
 	 * Method to recompute the number of available parking slots and bikes
 	 */
@@ -149,7 +149,7 @@ public class Station implements Observable {
 		this.freeBikes=bikes;
 		this.freeSlots=free;
 	}
-	
+
 	/**
 	 * Method to check if the station currently holds a bike of the desired type in one of its parking slots.
 	 */	
@@ -163,13 +163,13 @@ public class Station implements Observable {
 		for (ParkingSlot pS : parkingSlotList) {
 			if (pS.getState().equals("Occupied")) {
 				if (pS.getBicycle().getTypeBike().equalsIgnoreCase(typeBike)) {
-				return true;
+					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Calculates the number of bikes of the desired type that the station currently holds
 	 * @return
@@ -185,35 +185,32 @@ public class Station implements Observable {
 		}
 		return numb;
 	}
-		
+
 	/**
 	 * Method to check if the station currently has a free parking slot.
 	 * @return
 	 */
-	
+
 	public boolean availableParkingSlot() {
-			if (this.freeSlots>0) {
-				return true;
-		}
-		return false;
+		return (this.freeSlots>0);
 	}
-	
+
 	public void addParkingSlot(ParkingSlot pS) {
 		parkingSlotList.add(pS);
 		pS.setStation(this);
 		this.calcul();
 	}
-	
+
 	public void removeParkingSlot(ParkingSlot pS) {
 		parkingSlotList.remove(pS);
 		this.calcul();
 	}
-		
+
 	@Override
 	public void registerEndRide(Location loc) {
 		this.incomingRideList.add(loc);
 	}
-	
+
 	@Override
 	public void removeRide(Location loc) {
 		this.incomingRideList.remove(loc);
@@ -226,7 +223,7 @@ public class Station implements Observable {
 				loc.updateArrival(this);
 			}
 		}
-		
+
 	}
 	@Override
 	public boolean equals(Object obj){
@@ -249,10 +246,14 @@ public class Station implements Observable {
 		ArrayList<Location> locationList=Reseau.getInstance().getLocationList();
 		int compteur=0;
 		for (Location loc :locationList){
-			if(loc.getDeparture().equals(this) && loc.isHasStarted()){
-				compteur++;
+			try{
+				if(loc.getDeparture().equals(this) && loc.isHasStarted()){
+					compteur++;
+				}
 			}
-			
+			finally{
+			}
+
 		}
 		return(compteur);
 	}
@@ -264,10 +265,15 @@ public class Station implements Observable {
 		ArrayList<Location> locationList=Reseau.getInstance().getLocationList();
 		int compteur=0;
 		for (Location loc :locationList){
-			if(loc.getEnd().equals(this) && !loc.getTimeEnd().equals(null)){
-				compteur++;
-			}
-			
+			if(loc.isHasEnded()){
+				try {
+					if(loc.getEnd().equals(this)){
+						compteur++;
+					}
+				}
+				finally{
+				}
+			}	
 		}
 		return(compteur);
 	}
