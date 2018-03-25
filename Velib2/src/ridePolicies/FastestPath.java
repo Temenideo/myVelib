@@ -1,4 +1,4 @@
-package ridePolicies;
+  package ridePolicies;
 
 import myVelib.GPScoord;
 import myVelib.Reseau;
@@ -15,7 +15,7 @@ public class FastestPath implements RidePolicy{
 		double travel = -1;
 		Station departure = null;
 			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service") && stat.availableBike(typeBike)) {
+				if(stat.getState().equalsIgnoreCase("On service") && stat.availableBike(typeBike)) {
 						if (travel<0 || travel>User.getUserSpeed()*(start.getDistance(stat.getPosition()))+stat.getPosition().getDistance(arrival.getPosition())) {
 							travel=User.getUserSpeed()*(start.getDistance(stat.getPosition()))+stat.getPosition().getDistance(arrival.getPosition());
 							departure=stat;

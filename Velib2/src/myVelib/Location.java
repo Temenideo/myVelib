@@ -50,12 +50,9 @@ public class Location implements Observer{
 			for(ParkingSlot pS : departure.getParkingSlotList()) {
 				if (pS.getBicycle().getTypeBike()==type){
 
-					bike=pS.getBike();
+					bike=pS.retrieveBike();
 					break;}
 			}
-			//cela l'imprime à chaque fois que c'est marché ou non...
-			// en plus si on écrit un type random style clubraidathle cela renvoi un message qui a pas trop de lien
-			System.out.println("No bike is available in this station");
 			break;
 		}
 		if(bike!=null) {
@@ -64,9 +61,8 @@ public class Location implements Observer{
 			this.hasStarted=true;
 			this.user.setRideNumber(user.getRideNumber()+1);
 		}
-		// pour olivier je vois pas pourquoi il y a un computeStart
 		else {
-			this.computeStart();
+			System.out.println("No bike is available in this station");
 		}
 	}
 
@@ -92,8 +88,6 @@ public class Location implements Observer{
 				stored = pS.storeBike(this.bike);		
 				break;
 			}
-			//cela l'imprime à chaque fois que c'est marché ou non...
-			System.out.println("No parking slot is available in this station");
 			break;
 		}
 		if(stored==true) {
@@ -109,6 +103,7 @@ public class Location implements Observer{
 
 		}
 		else {
+			System.out.println("No parking slot is available in this station");
 			this.computeEnd();
 		}
 

@@ -1,6 +1,9 @@
 package myVelib;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+
+import myVelib.SortingStations.SortingMethods;
 
 /**
  * Classe Reseau permettant de rassembler la liste des stations, la liste des utilisateurs, la liste des locations
@@ -32,7 +35,11 @@ public class Reseau {
 		}
 		return instance;
 	}
-	
+	public void resetReseau(){
+		this.stationList = new ArrayList<Station>();
+		this.userList = new ArrayList<User>();
+		this.locationList = new ArrayList<Location>();
+	}
 	public ArrayList<Station> getStationList() {
 		return stationList;
 	}
@@ -101,6 +108,12 @@ public class Reseau {
 		}
 		return standardList;
 	}
-	
-	
+	/**
+	 * Description a faire
+	 * @param Sm
+	 * @throws ParseException
+	 */
+	public void SortStation(SortingMethods Sm) throws ParseException{
+		Sm.sortStation(getStationList());
+	}
 }

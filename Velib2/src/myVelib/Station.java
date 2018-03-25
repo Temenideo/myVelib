@@ -54,6 +54,33 @@ public class Station implements Observable {
 		
 		
 	}
+	
+	public Station(String typeStation, String state, GPScoord position,
+			String name) throws BadStateStationCreationException,BadTypeStationCreationException {
+		super();
+		if (typeStation=="Standard" || typeStation=="Plus"){
+			if ( state=="on service" || state=="offline"){
+				compteur=compteur+1;
+				stationID=compteur;
+				this.parkingSlotList = new ArrayList<ParkingSlot>();
+				this.typeStation = typeStation;
+				this.state = state;
+				this.position = position;
+				this.name = name;
+				this.incomingRideList=new ArrayList<Location>();
+				Reseau.getInstance().addStation(this);
+			}
+			else {
+				throw new BadStateStationCreationException(state);
+			}
+		}
+		else {
+			throw new BadTypeStationCreationException(typeStation);
+		}
+		
+		
+	}
+	
 	public String getTypeStation() {
 		return typeStation;
 	}
