@@ -1,4 +1,4 @@
-package ridePolicies;
+package myVelib.ridePolicies;
 
 import myVelib.GPScoord;
 import myVelib.Reseau;
@@ -9,10 +9,9 @@ public class AvoidPlus implements RidePolicy{
 	public Station computeStart(GPScoord start,GPScoord end,String typeBike) throws NoStartStationAvailibleException {
 		double dist=-1;
 		Station startStation = null;
-		Reseau reseau = Reseau.getInstance();
 			// on parcours la liste des stations en regardant qu'elle respecte les critères
-			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service") && stat.availableBike(typeBike)) {
+			for (Station stat : Reseau.getInstance().getStationList()) {
+				if(stat.getState().equalsIgnoreCase("On service") && stat.availableBike(typeBike)) {
 						// on regarde si elle est plus proche
 						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
 							dist=start.getDistance(stat.getPosition());
@@ -34,7 +33,7 @@ public class AvoidPlus implements RidePolicy{
 		Station endStation = null;
 		Reseau reseau = Reseau.getInstance();
 		for (Station stat : reseau.getStandardStationList()) {
-			if(stat.getState().equals("On service") && stat.availableParkingSlot()) {
+			if(stat.getState().equalsIgnoreCase("On service") && stat.availableParkingSlot()) {
 					if (dist<0 || dist>end.getDistance(stat.getPosition())) {
 						dist=end.getDistance(stat.getPosition());
 						endStation=stat;

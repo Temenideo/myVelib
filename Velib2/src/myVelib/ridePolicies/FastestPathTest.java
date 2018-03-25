@@ -1,4 +1,4 @@
-package ridePolicies;
+package myVelib.ridePolicies;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +19,6 @@ public class FastestPathTest {
 
 	@Test
 	public void testComputeSimpleCase() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailibleException, NoEndStationAvailibleExecption {
-		Reseau res = Reseau.getInstance();
 		Station stat =new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(100,100), null);
 		Station stat2= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(100,105), null);
 		stat.addParkingSlot(new ParkingSlot(new Electrical(),"Occupied",stat));
@@ -33,7 +32,6 @@ public class FastestPathTest {
 
 	@Test
 	public void testComputeThreeStation() throws BadStateStationCreationException, BadTypeStationCreationException, NoStartStationAvailibleException, NoEndStationAvailibleExecption, BadParkingSlotCreationException {
-		Reseau res = Reseau.getInstance();
 		Station stat =new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(1,1), null);
 		Station stat2= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(0,(float) 5.5), null);
 		Station stat4= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(0,(float) 3), null);
@@ -50,7 +48,6 @@ public class FastestPathTest {
 	}
 	@Test 
 	public void testComputeThreeStationBis() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailibleException, NoEndStationAvailibleExecption {
-		Reseau res = Reseau.getInstance();
 		Station stat =new Station(new ArrayList<ParkingSlot>(), "Plus", "offline", new GPScoord(200,201), null);
 		Station stat2= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(200,(float) 205.5), null);
 		Station stat4= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(200,(float) 203), null);
@@ -67,7 +64,6 @@ public class FastestPathTest {
 	}
 	@Test
 	public void testComputeThreeStationBiss() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailibleException, NoEndStationAvailibleExecption {
-		Reseau res = Reseau.getInstance();
 		Station stat =new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(300,301), null);
 		Station stat2= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(300,(float) 305.5), null);
 		Station stat4= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(300,(float) 303), null);	

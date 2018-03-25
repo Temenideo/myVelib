@@ -1,4 +1,4 @@
-package ridePolicies;
+package myVelib.ridePolicies;
 
 public class NoStartStationAvailibleException extends Exception {
 

@@ -1,4 +1,4 @@
-  package ridePolicies;
+  package myVelib.ridePolicies;
 
 import myVelib.GPScoord;
 import myVelib.Reseau;
