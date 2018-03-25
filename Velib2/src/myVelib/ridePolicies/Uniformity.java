@@ -6,7 +6,7 @@ import myVelib.Station;
 
 public class Uniformity implements RidePolicy{
 	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
-			throws NoStartStationAvailibleException {
+			throws NoStartStationAvailableException {
 		Reseau reseau = Reseau.getInstance();
 		double dist=-1;
 		Station startStation = null;
@@ -38,9 +38,9 @@ public class Uniformity implements RidePolicy{
 			return(startStation);
 		}
 		else
-			throw new NoStartStationAvailibleException();
+			throw new NoStartStationAvailableException();
 	}
-	public Station computeEnd(GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailibleExecption {
+	public Station computeEnd(GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailableException {
 		Reseau reseau = Reseau.getInstance();
 		double dist=-1;
 		Station endStation = null;
@@ -68,6 +68,6 @@ public class Uniformity implements RidePolicy{
 			return(endStation);
 		}
 		else
-			throw new NoEndStationAvailibleExecption();
+			throw new NoEndStationAvailableException();
 	}
 }

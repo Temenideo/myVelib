@@ -17,7 +17,7 @@ import myVelib.Bicycle.Electrical;
 public class UniformityTest {
 
 	@Test
-	public void testComputeStart() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailibleException, NoEndStationAvailibleExecption {
+	public void testComputeStart() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailableException, NoEndStationAvailableException {
 		Station stat1 =new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(0,100), null);
 		Station stat2= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(0,105), null);
 		new ParkingSlot(new Electrical(),"Occupied",stat1);
@@ -34,7 +34,7 @@ public class UniformityTest {
 	}
 	
 	@Test
-	public void testComputeEnd() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailibleException, NoEndStationAvailibleExecption {
+	public void testComputeEnd() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailableException, NoEndStationAvailableException {
 		Station stat1 =new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(0,-100), null);
 		Station stat2= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(0,-106), null);
 		new ParkingSlot(null,"Free",stat1);
