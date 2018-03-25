@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import myVelib.Card.Card;
-import myVelib.ridePolicies.NoEndStationAvailibleExecption;
-import myVelib.ridePolicies.NoStartStationAvailibleException;
+import myVelib.ridePolicies.NoEndStationAvailableException;
+import myVelib.ridePolicies.NoStartStationAvailableException;
 import myVelib.ridePolicies.RidePolicy;
 import myVelib.Bicycle.Bicycle;
 
@@ -23,7 +23,7 @@ public class Location implements Observer{
 	private User user;
 	private RidePolicy ridePolicy;
 
-	public Location(User user, GPScoord start, GPScoord end, RidePolicy ridePolicy, String typeBike) throws NoEndStationAvailibleExecption, NoStartStationAvailibleException {
+	public Location(User user, GPScoord start, GPScoord end, RidePolicy ridePolicy, String typeBike) throws NoEndStationAvailableException, NoStartStationAvailableException {
 		this.user=user;
 		this.start=start;
 		this.end=end;
@@ -32,7 +32,7 @@ public class Location implements Observer{
 		this.user.setLocation(this);
 		this.ridePolicy=ridePolicy;
 		this.departure=ridePolicy.computeStart(start, end, typeBike);
-		this.departure=ridePolicy.computeEnd(start, end, typeBike);
+		this.arrival=ridePolicy.computeEnd(start, end, typeBike);
 		Reseau.getInstance().addLocation(this);
 	}
 
@@ -43,6 +43,18 @@ public class Location implements Observer{
 		this.timeStart=Calendar.getInstance().getTime();
 		this.user.setLocation(this);
 		this.hasEnded=false;
+		Reseau.getInstance().addLocation(this);
+	}
+	
+	public Location(User user, Station departure, String typeBike, RidePolicy policy) throws BadParkingSlotCreationException {
+		this.user=user;
+		this.departure=departure;
+		this.hasStarted=true;
+		this.timeStart=Calendar.getInstance().getTime();
+		this.user.setLocation(this);
+		this.hasEnded=false;
+		this.ridePolicy=policy;
+		this.takeBike(departure, typeBike);
 		Reseau.getInstance().addLocation(this);
 	}
 
