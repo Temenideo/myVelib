@@ -45,7 +45,7 @@ public class ParkingSlotTest {
 		DateFormat format = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z", Locale.ENGLISH);
 		Date datestart = format.parse(string);
 		Date dateend = format.parse(string2);
-		Date dateend2 = format.parse(string3);
+		//Date dateend2 = format.parse(string3);
 		Date dateend3 = format.parse(string4);
 		pS.getHistory().add(new TimeState(true,datestart));
 		pS.getHistory().get(0).setEnd(dateend);
