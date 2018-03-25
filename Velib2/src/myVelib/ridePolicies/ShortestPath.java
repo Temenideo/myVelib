@@ -8,18 +8,18 @@ public class ShortestPath implements RidePolicy{
 
 	@Override
 	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
-			throws NoStartStationAvailibleException {
+			throws NoStartStationAvailableException {
 		double dist=-1;
 		Station startStation = null;
 		Reseau reseau = Reseau.getInstance();
 		// on parcours la liste des stations en regardant qu'elle respecte les critères
-		for (Station stat : reseau.getStationList()) {
-			for (Station stat1: reseau.getStationList()){
-				if(stat.getState().equalsIgnoreCase("On service") && stat1.getState().equals("On service") && stat.availableBike(typeBike)) {
+		for (Station stat1 : reseau.getStationList()) {
+			for (Station stat2: reseau.getStationList()){
+				if(stat1.getState().equalsIgnoreCase("On service") && stat2.getState().equalsIgnoreCase("On service") && stat1.availableBike(typeBike) && stat2.availableParkingSlot()) {
 					// on regarde si elle est plus proche
-					if (dist<0 || dist>(start.getDistance(stat.getPosition())+stat.getPosition().getDistance(stat1.getPosition())+stat1.getPosition().getDistance(end))) {
-						dist=start.getDistance(stat.getPosition())+stat.getPosition().getDistance(stat1.getPosition())+stat1.getPosition().getDistance(end);
-						startStation=stat;
+					if (dist<0 || dist>(start.getDistance(stat1.getPosition())+stat1.getPosition().getDistance(stat2.getPosition())+stat2.getPosition().getDistance(end))) {
+						dist=start.getDistance(stat1.getPosition())+stat1.getPosition().getDistance(stat2.getPosition())+stat2.getPosition().getDistance(end);
+						startStation=stat1;
 					}
 				}
 			}
@@ -30,23 +30,23 @@ public class ShortestPath implements RidePolicy{
 		}
 		// si ce n'est pas le cas on renvoie une erreur
 		else
-			throw new NoStartStationAvailibleException();
+			throw new NoStartStationAvailableException();
 	}
 
 	@Override
 	public Station computeEnd(GPScoord start, GPScoord end, String typeBike)
-			throws NoEndStationAvailibleExecption {
+			throws NoEndStationAvailableException {
 		double dist=-1;
 		Station endStation = null;
 		Reseau reseau = Reseau.getInstance();
 		// on parcours la liste des stations en regardant qu'elle respecte les critères
-		for (Station stat : reseau.getStationList()) {
-			for (Station stat1: reseau.getStationList()){
-				if(stat.getState().equalsIgnoreCase("On service") && stat1.getState().equals("On service") && stat.availableBike(typeBike)) {
+		for (Station stat1 : reseau.getStationList()) {
+			for (Station stat2: reseau.getStationList()){
+				if(stat1.getState().equalsIgnoreCase("On service") && stat2.getState().equalsIgnoreCase("On service") && stat1.availableBike(typeBike) && stat2.availableParkingSlot()) {
 					// on regarde si elle est plus proche
-					if (dist<0 || dist>(start.getDistance(stat.getPosition())+stat.getPosition().getDistance(stat1.getPosition())+stat1.getPosition().getDistance(end))) {
-						dist=start.getDistance(stat.getPosition())+stat.getPosition().getDistance(stat1.getPosition())+stat1.getPosition().getDistance(end);
-						endStation=stat;
+					if (dist<0 || dist>(start.getDistance(stat1.getPosition())+stat1.getPosition().getDistance(stat2.getPosition())+stat2.getPosition().getDistance(end))) {
+						dist=start.getDistance(stat1.getPosition())+stat1.getPosition().getDistance(stat2.getPosition())+stat2.getPosition().getDistance(end);
+						endStation=stat2;
 					}
 				}
 			}
@@ -57,6 +57,6 @@ public class ShortestPath implements RidePolicy{
 		}
 		// si ce n'est pas le cas on renvoie une erreur
 		else
-			throw new NoEndStationAvailibleExecption();
+			throw new NoEndStationAvailableException();
 	}
 }

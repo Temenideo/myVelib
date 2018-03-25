@@ -17,7 +17,7 @@ import myVelib.Bicycle.Electrical;
 public class AvoidPlusTest {
 
 	@Test
-	public void testAvoidPlus() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailibleException, NoEndStationAvailibleExecption {
+	public void testAvoidPlus() throws BadStateStationCreationException, BadTypeStationCreationException, BadParkingSlotCreationException, NoStartStationAvailableException, NoEndStationAvailableException {
 		Station stat =new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(100,99), null);
 		Station stat2= new Station(new ArrayList<ParkingSlot>(), "Plus", "on service", new GPScoord(100,105), null);
 		Station stat3= new Station(new ArrayList<ParkingSlot>(), "Standard", "on service", new GPScoord(100,120), null);

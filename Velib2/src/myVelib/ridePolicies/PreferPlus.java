@@ -10,7 +10,7 @@ public class PreferPlus implements RidePolicy{
 	 * Méthode fonctionnent pareil que c'est de AvoidPlus pour le départ
 	 */
 	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
-			throws NoStartStationAvailibleException {
+			throws NoStartStationAvailableException {
 		double dist=-1;
 		Station startStation = null;
 			for (Station stat : Reseau.getInstance().getStationList()) {
@@ -27,13 +27,13 @@ public class PreferPlus implements RidePolicy{
 			return(startStation);
 		}
 		else
-			throw new NoStartStationAvailibleException();
+			throw new NoStartStationAvailableException();
 	}
 
 
 	@Override
 	public Station computeEnd( GPScoord start, GPScoord end, String typeBike)
-			throws NoEndStationAvailibleExecption {
+			throws NoEndStationAvailableException {
 		double distPlus=-1;
 		double distNoPlus=-1;
 		Station endPlusStation = null;
@@ -80,7 +80,7 @@ public class PreferPlus implements RidePolicy{
 		}
 		// sinon on renvoie une erreur
 		else{
-			throw new NoEndStationAvailibleExecption();
+			throw new NoEndStationAvailableException();
 		}
 	}
 }
