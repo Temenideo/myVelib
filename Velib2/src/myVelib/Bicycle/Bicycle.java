@@ -1,15 +1,15 @@
 package myVelib.Bicycle;
 
-public class Bicycle {
+public abstract class Bicycle {
 	private static Long compteur=(long) 1;
 	private long bikeID;
 	protected String typeBike; // protected est necessaire ici pour que les sous-classes y est accès
 	public Bicycle() {
 		super();
-		compteur++;
 		bikeID=compteur;
-			
+		compteur++;
 	}
+	
 	public long getBikeID() {
 		return bikeID;
 	}

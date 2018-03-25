@@ -29,8 +29,8 @@ public class VmaxCard extends Card{
 			else if (min<this.getTimeCredit()) {
 				this.setTimeCredit(getTimeCredit()-(int)min);
 				hours--;
-				cost+=costMH1+costMH2*hours;
 			}
+			else cost+=costEH1+costEH2*hours;
 			
 		}
 		if(loc.getBike().getTypeBike().equalsIgnoreCase("Electrical")) {
@@ -43,6 +43,7 @@ public class VmaxCard extends Card{
 				hours--;
 				cost+=costEH1+costEH2*hours;
 			}
+			else cost+=costEH1+costEH2*hours;
 		}
 		
 		return cost;

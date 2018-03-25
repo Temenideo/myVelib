@@ -34,6 +34,12 @@ public class TimeState {
 	public void setStart(Date start) {
 		this.start = start;
 	}
+	@Override
+	public String toString() {
+		return "TimeState [occupied=" + occupied + ", start=" + start + ", end=" + end + "]";
+	}
+	
+	
 	
 	
 }
