@@ -1,4 +1,4 @@
-  package ridePolicies;
+  package myVelib.ridePolicies;
 
 import myVelib.GPScoord;
 import myVelib.Reseau;
@@ -9,7 +9,7 @@ public class FastestPath implements RidePolicy{
 
 	@Override
 	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
-			throws NoStartStationAvailibleException, NoEndStationAvailibleExecption {
+			throws NoStartStationAvailableException, NoEndStationAvailableException {
 		Station arrival = computeEnd(start,end,typeBike);
 		Reseau reseau = Reseau.getInstance();
 		double travel = -1;
@@ -28,12 +28,12 @@ public class FastestPath implements RidePolicy{
 		}
 		// si ce n'est pas le cas on renvoie une erreur
 		else
-			throw new NoStartStationAvailibleException();
+			throw new NoStartStationAvailableException();
 	}
 
 	@Override
 	public Station computeEnd(GPScoord start,GPScoord end,String typeBike)
-			throws NoEndStationAvailibleExecption {
+			throws NoEndStationAvailableException {
 		Reseau reseau = Reseau.getInstance();
 		double dist = -1;
 		Station arrival = null;
@@ -50,7 +50,7 @@ public class FastestPath implements RidePolicy{
 				return(arrival);
 		}
 		else
-			throw new NoEndStationAvailibleExecption();
+			throw new NoEndStationAvailableException();
 	}
 
 }

@@ -1,4 +1,4 @@
-package ridePolicies;
+package myVelib.ridePolicies;
 
 import myVelib.GPScoord;
 import myVelib.Reseau;
@@ -6,14 +6,14 @@ import myVelib.Station;
 
 public class Uniformity implements RidePolicy{
 	public Station computeStart(GPScoord start, GPScoord end, String typeBike)
-			throws NoStartStationAvailibleException {
+			throws NoStartStationAvailableException {
 		Reseau reseau = Reseau.getInstance();
 		double dist=-1;
 		Station startStation = null;
 		int numberOfAvailibleBike=0;
 		// ici on trouve la station la plus proche du lieu de départ
 			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service")) {
+				if(stat.getState().equalsIgnoreCase("On service")) {
 					if(stat.availableBike(typeBike)) {
 						if (dist<0 || dist>start.getDistance(stat.getPosition())) {
 							dist=start.getDistance(stat.getPosition());
@@ -25,7 +25,7 @@ public class Uniformity implements RidePolicy{
 			}
 			// ici on compare si d'autres station aux alentours ont plus de vélo disponible
 			for (Station stat : reseau.getStationList()) {
-				if(stat.getState().equals("On service") && !stat.equals(startStation)) {
+				if(stat.getState().equalsIgnoreCase("On service") && !stat.equals(startStation)) {
 					if(stat.availableBike(typeBike)) {
 						if (numberOfAvailibleBike<stat.NumberAvailableBike(typeBike) && 1.05*dist>start.getDistance(stat.getPosition())) {
 							return(stat);
@@ -38,15 +38,15 @@ public class Uniformity implements RidePolicy{
 			return(startStation);
 		}
 		else
-			throw new NoStartStationAvailibleException();
+			throw new NoStartStationAvailableException();
 	}
-	public Station computeEnd(GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailibleExecption {
+	public Station computeEnd(GPScoord start,GPScoord end,String typeBike) throws NoEndStationAvailableException {
 		Reseau reseau = Reseau.getInstance();
 		double dist=-1;
 		Station endStation = null;
 		// ici on trouve la station la plus proche du lieu d'arriver
 		for (Station stat : reseau.getStationList()) {
-			if(stat.getState().equals("On service")) {
+			if(stat.getState().equalsIgnoreCase("On service")) {
 				if(stat.availableParkingSlot()) {
 					if (dist<0 || dist>end.getDistance(stat.getPosition())) {
 						dist=end.getDistance(stat.getPosition());
@@ -57,11 +57,9 @@ public class Uniformity implements RidePolicy{
 		}
 		// ici on compare si d'autres station aux alentours ont plus de place disponible
 		for (Station stat : reseau.getStationList()) {
-			if(stat.getState().equals("On service") && !stat.equals(endStation)) {
-				if(stat.availableBike(typeBike)) {
-					if (endStation.getFreeSlots()<stat.getFreeSlots() && 1.05*dist>start.getDistance(stat.getPosition())) {
+			if(stat.getState().equalsIgnoreCase("On service") && !stat.equals(endStation)) {
+					if (endStation.getFreeSlots()<stat.getFreeSlots() && 1.05*dist>end.getDistance(stat.getPosition())) {
 						return(stat);
-					}
 				}
 			}
 		}
@@ -70,6 +68,6 @@ public class Uniformity implements RidePolicy{
 			return(endStation);
 		}
 		else
-			throw new NoEndStationAvailibleExecption();
+			throw new NoEndStationAvailableException();
 	}
 }

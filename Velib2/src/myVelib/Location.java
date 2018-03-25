@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import myVelib.Card.Card;
+import myVelib.ridePolicies.RidePolicy;
 import myVelib.Bicycle.Bicycle;
-import ridePolicies.RidePolicy;
 
 public class Location implements Observer{
 	private Date timeStart;
