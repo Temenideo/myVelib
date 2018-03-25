@@ -35,7 +35,11 @@ public class Reseau {
 		}
 		return instance;
 	}
-	
+	public void resetReseau(){
+		this.stationList = new ArrayList<Station>();
+		this.userList = new ArrayList<User>();
+		this.locationList = new ArrayList<Location>();
+	}
 	public ArrayList<Station> getStationList() {
 		return stationList;
 	}
