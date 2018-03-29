@@ -267,9 +267,12 @@ public class Station implements Observable {
 		for (Location loc :locationList){
 			if(loc.isHasEnded()){
 				try {
-					if(loc.getEnd().equals(this)){
+					if(loc.getArrival().equals(this)){
 						compteur++;
 					}
+				}
+				catch (NullPointerException e){
+					
 				}
 				finally{
 				}

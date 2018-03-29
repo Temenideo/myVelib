@@ -112,15 +112,15 @@ public class ParkingSlot {
 				timeOccupied=timeOccupied+getDuration(history.get(i).getStart(), history.get(i).getEnd(), TimeUnit.MINUTES);
 			}
 			// prends en compte les cas ou le timestate possède une partie dans l'intervalle mais sa fin est hors de la fenetre d'étude
-			if(history.get(i).getStart().compareTo(start)>=0 && history.get(i).getEnd().compareTo(end)>=0 && history.get(i).isOccupied() && history.get(i).getStart().compareTo(end)<=0){
+			else if(history.get(i).getStart().compareTo(start)>=0 && history.get(i).getEnd().compareTo(end)>=0 && history.get(i).isOccupied() && history.get(i).getStart().compareTo(end)<=0){
 				timeOccupied=timeOccupied+getDuration(history.get(i).getStart(),end,TimeUnit.MINUTES);
 			}
 			// prends en compte les cas ou le timestate possède une partie dans l'intervalle mais son début est hors de la fenetre d'étude
-			if(history.get(i).getEnd().compareTo(end)<=0 && history.get(i).getEnd().compareTo(start)<=0 && history.get(i).isOccupied() && history.get(i).getStart().compareTo(start)<=0){
+			else if(history.get(i).getEnd().compareTo(end)<=0 && history.get(i).getEnd().compareTo(start)<=0 && history.get(i).isOccupied() && history.get(i).getStart().compareTo(start)<=0){
 				timeOccupied=timeOccupied+getDuration(start,history.get(i).getEnd(),TimeUnit.MINUTES);
 			}
-			// prends en compte les cas ou le timestate inclu l'intervalle d'étude
-			if(history.get(i).getEnd().compareTo(end)>=0 && history.get(i).isOccupied() && history.get(i).getStart().compareTo(start)<=0){
+			// prends en compte les cas ou l'intervalle d'étude est inclu dans le timestate
+			else if(history.get(i).getEnd().compareTo(end)>0 && history.get(i).isOccupied() && history.get(i).getStart().compareTo(start)<0){
 				timeOccupied=timeOccupied+getDuration(start,end,TimeUnit.MINUTES);
 			}
 		}
@@ -135,7 +135,7 @@ public class ParkingSlot {
 			}
 		}
 		// permet de considerer le dernier timestate qui n'a pas encore d'attribut end et avec un début avant l'intervalle
-		if (history.get(longueur-1).getStart().compareTo(start)<=0 && history.get(longueur-1).isOccupied()){
+		if (history.get(longueur-1).getStart().compareTo(start)<0 && history.get(longueur-1).isOccupied()){
 			if(Calendar.getInstance().getTime().compareTo(end)<0){
 				timeOccupied=timeOccupied+getDuration(start,Calendar.getInstance().getTime(),TimeUnit.MINUTES);
 			}
