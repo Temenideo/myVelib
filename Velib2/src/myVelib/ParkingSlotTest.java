@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
@@ -44,16 +45,17 @@ public class ParkingSlotTest {
 		String string4 = "2018.03.25 AD at 16:39:56 PDT";
 		DateFormat format = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z", Locale.ENGLISH);
 		Date datestart = format.parse(string);
-		Date dateend = format.parse(string2);
-		//Date dateend2 = format.parse(string3);
+		Date dateend = format.parse(string2); 
+		Date dateend2 = format.parse(string3);
 		Date dateend3 = format.parse(string4);
+		pS.getHistory().remove(0);
 		pS.getHistory().add(new TimeState(true,datestart));
 		pS.getHistory().get(0).setEnd(dateend);
-		//pS.getHistory().add(new TimeState(true,dateend));
-		//pS.getHistory().get(1).setEnd(dateend2);
-		//pS.getHistory().add(new TimeState(true,dateend2));
-		//pS.getHistory().get(2).setEnd(dateend3);
-		assertEquals(pS.getTimeOccupied(datestart, dateend3),30);
+		pS.getHistory().add(new TimeState(true,dateend));
+		pS.getHistory().get(1).setEnd(dateend2);
+		pS.getHistory().add(new TimeState(true,dateend2));
+		pS.getHistory().get(2).setEnd(dateend3);
+		assertEquals(pS.getTimeOccupied(datestart, dateend3),271);
 		
 		
 	}
