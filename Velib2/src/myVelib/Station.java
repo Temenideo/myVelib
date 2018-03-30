@@ -148,6 +148,7 @@ public class Station implements Observable {
 		}
 		this.freeBikes=bikes;
 		this.freeSlots=free;
+		this.notifyEndRide();
 	}
 
 	/**

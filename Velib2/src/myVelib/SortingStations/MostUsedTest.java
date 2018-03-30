@@ -23,7 +23,7 @@ public class MostUsedTest {
 		Station departure = new Station(new ArrayList<ParkingSlot>(), "Standard", "on service", new GPScoord(0,0), null);
 		new ParkingSlot(new Mechanical(),"Occupied",departure);
 		User user1 = new User("Jean","Paul");
-		Location loc = new Location(user1,new GPScoord(0,0),new GPScoord(1,1));
+		Location loc = new Location(user1,departure);
 		loc.takeBike(departure,"Mechanical");
 		loc.returnBike(departure);
 		
