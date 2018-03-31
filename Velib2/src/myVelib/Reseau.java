@@ -16,14 +16,16 @@ public class Reseau {
 	 * La classe reseau est constituée de 3 attributs, une ArrayList de Station nommée stationList, une ArrayList de User nommée userList
 	 * et une ArrayList de Location nommée locationList
 	 */
+	protected String name;
 	protected ArrayList<Station> stationList;
 	protected ArrayList<User> userList;
 	protected ArrayList<Location> locationList;
 	private static Reseau instance = null;
 	
 		
-	private Reseau() {
+	private Reseau(String name) {
 		super();
+		this.name=name;
 		this.stationList = new ArrayList<Station>();
 		this.userList = new ArrayList<User>();
 		this.locationList = new ArrayList<Location>();
