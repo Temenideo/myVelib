@@ -96,29 +96,29 @@ public class Location implements Observer{
 	 */
 	public void takeBike(Station departure,String type) throws BadParkingSlotCreationException{
 		if(this.user.getLoc()==null) {
-		while(bike==null) {
-			for(ParkingSlot pS : departure.getParkingSlotList()) {
-				if (pS.getBicycle().getTypeBike()==type){
-
-					bike=pS.retrieveBike();
-					break;}
+			while(bike==null) {
+				for(ParkingSlot pS : departure.getParkingSlotList()) {
+					if (pS.getBicycle().getTypeBike()==type){
+						bike=pS.retrieveBike();
+						break;}
+				}
+				break;
 			}
-			break;
-		}
-		if(bike!=null) {
-			this.departure=departure;
-			this.timeStart=Calendar.getInstance().getTime();
-			this.hasStarted=true;
-			this.user.setRideNumber(user.getRideNumber()+1);
-			this.user.setLocation(this);
-		}
-		else {
-			System.out.println("No bike is available in this station");
+			if(bike!=null) {
+				this.departure=departure;
+				this.timeStart=Calendar.getInstance().getTime();
+				this.hasStarted=true;
+				this.user.setRideNumber(user.getRideNumber()+1);
+				this.user.setLocation(this);
+			}
+			else {
+				System.out.println("No bike is available in this station");
+			}
 		}
 		else {
 			System.out.println("User is currently renting another bike. Please return it before getting a new one");
 		}
-		}
+		
 	}
 
 	@Override
