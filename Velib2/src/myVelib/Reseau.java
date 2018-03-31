@@ -23,7 +23,7 @@ public class Reseau {
 	private static Reseau instance = null;
 	
 		
-	private Reseau(String name) {
+	private Reseau() {
 		super();
 		this.name=name;
 		this.stationList = new ArrayList<Station>();
