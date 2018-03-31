@@ -84,7 +84,6 @@ public class Location implements Observer{
 	}
 
 
-//Pour l'instant aucune vérification n'est faite pour vérifier que l'user n'a pas déjà une location en cours
 	/**
 	 * This method tries to retrieve a bike from the departure station. 
 	 * It goes through all of the station's parking slot until it has found one that is holding a bike.
@@ -252,38 +251,66 @@ public class Location implements Observer{
 	public void setBike(Bicycle bike) {
 		this.bike = bike;
 	}
-
+/**
+ * Fonction qui donne la station de départ de la location
+ * @return Station de départ de la location
+ */
 	public Station getDeparture() {
 		return departure;
 	}
-
+/**
+ * Fonction qui permet de changer la station de départ de la location
+ * @param departure nouvelle station de départ
+ */
 	public void setDeparture(Station departure) {
 		this.departure = departure;
 	}
-
+/**
+ * Fonction qui permet d'accéder aux coordonnées GPS du lieux de destination (qui n'est pas forcement une station)
+ * @return les coordonnées GPS sous le format GPScoord
+ */
 	public GPScoord getEnd() {
 		return end;
 	}
-
+/**
+ * Fonction qui permet de changer les coordonnées GPS du lieux d'arrivée
+ * @param end Nouvelle coordonées GPS sous le format GPScoord
+ */
 	public void setEnd(GPScoord end) {
 		this.end = end;
 	}
-
+/**
+ * Fonction qui permet de savoir si la location a commencé c'est a dire si un vélo a était loué
+ * @return retourne un booléen, True si la location a commencé False sinon
+ */
 	public boolean isHasStarted() {
 		return hasStarted;
 	}
-
+/**
+ * Permet d'actualiser le commencement ou non de la location
+ * @param hasStarted nouvelle état à mettre sous la forme d'un booléen
+ */
 	public void setHasStarted(boolean hasStarted) {
 		this.hasStarted = hasStarted;
 	}
-
+/**
+ * Permet d'actualiser les coordonnées GPS du point de départ ( qui n'est pas forcément une station)
+ * @param start nouvelle coordonées GPS dans le format GPScoord
+ */
 	public void setStart(GPScoord start) {
 		this.start = start;
 	}
-
+/**
+ * Permet d'avoir les coordonnées GPS du point de départ
+ * @return coordonnées GPS du point de départ sous le format GPScoord
+ */
 	public GPScoord getStart() {
 		return start;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public User getUser() {
 		return user;
 	}
